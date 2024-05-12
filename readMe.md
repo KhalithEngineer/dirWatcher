@@ -10,7 +10,7 @@ To install and run DirWatcher, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/dirwatcher.git
+    git clone https://github.com/KhalithEngineer/dirWatcher.git
     ```
 
 2. Navigate to the project directory:
