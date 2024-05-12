@@ -46,6 +46,27 @@ DirWatcher can be configured using environment variables or a configuration file
 - `defaultMagicString`: The magic string to search for in the files.
 - `connectString`: The connection string is for postgres db connection.
 
+## TaskRun Table Schema
+
+The `taskrun` table stores information about each task run in the DirWatcher application.
+
+## Schema Design
+
+| Column       | Type          | Description                                  |
+|--------------|---------------|----------------------------------------------|
+| ID           | INTEGER       | Unique identifier for the task run.           |
+| StartTime    | TIMESTAMP     | Start time of the task run.                  |
+| EndTime      | TIMESTAMP     | End time of the task run.                    |
+| Runtime      | INTERVAL      | Duration of the task run.                    |
+| Status       | VARCHAR(20)   | Status of the task run (e.g., Success, Failed). |
+| FilesAdded   | TEXT ARRAY    | List of files added during the task run.     |
+| FilesDeleted | TEXT ARRAY    | List of files deleted during the task run.   |
+| Occurrences  | INTEGER       | Total occurrences of the magic string.       |
+| Directory    | VARCHAR(255)  | Directory being monitored during the task run. |
+| MagicString  | VARCHAR(255)  | Magic string being searched for.             |
+
+
+
 ## REST API
 
 The application exposes the following REST API endpoints:
