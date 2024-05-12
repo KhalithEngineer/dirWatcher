@@ -50,12 +50,119 @@ DirWatcher can be configured using environment variables or a configuration file
 
 The application exposes the following REST API endpoints:
 
-- `POST /start`: Starts the engine for monitoring the directory.
-- `POST /stop`: Stops the engine.
+### Endpoints
+
+- `POST /config`: Updates the configuration for the directory monitoring task.
+
+    **Request Body:**
+
+    ```bash
+    curl --location --request POST 'http://localhost:8080/config' \
+    --data '{
+        "dir": "../Users/test",
+        "interval": 10,
+        "magic_string": "go"
+    }'
+    ```
+
+    **Response:**
+
+    ```bash
+    HTTP/1.1 200 OK
+    ```
+
+- `GET /getTaskRuns`: Retrieves information about recent task runs.
+
+    **Request:**
+
+    ```bash
+    curl --location 'http://localhost:8080/getTaskRuns'
+    ```
+
+    **Response:**
+
+    ```json
+    [
+        {
+            "ID": 107,
+            "StartTime": "2024-05-12T21:16:27.143611Z",
+            "EndTime": "2024-05-12T21:16:27.145639Z",
+            "Runtime": "00:00:00.002028",
+            "Status": "Success",
+            "FilesAdded": null,
+            "FilesDeleted": null,
+            "Occurrences": 1,
+            "Directory": "/Users/khalith/projects/DirWatcher/.vscode",
+            "MagicString": "cmd"
+        },
+        {
+            "ID": 106,
+            "StartTime": "2024-05-12T21:16:07.144481Z",
+            "EndTime": "2024-05-12T21:16:07.146514Z",
+            "Runtime": "00:00:00.002033",
+            "Status": "Success",
+            "FilesAdded": [
+                "launch.json"
+            ],
+            "FilesDeleted": null,
+            "Occurrences": 1,
+            "Directory": "/Users/khalith/projects/DirWatcher/.vscode",
+            "MagicString": "cmd"
+        },
+        ...
+    ]
+    ```
+
+- `POST /stopMonitoringTask`: Stops the monitoring task.
+
+    **Request:**
+
+    ```bash
+    curl --location --request POST 'http://localhost:8080/stopMonitoringTask'
+    ```
+
+    **Response:**
+
+    ```json
+    {
+        "message": "Task stopped successfully"
+    }
+    ```
+
+- `POST /startMonitoringTask`: Starts the monitoring task.
+
+    **Request:**
+
+    ```bash
+    curl --location --request POST 'http://localhost:8080/startMonitoringTask'
+    ```
+
+    **Response:**
+
+    ```json
+    {
+        "message": "Task already running"
+    }
+    ```
+
+- `POST /toggleMonitoringTask`: Toggles the monitoring task (start if stopped, stop if running).
+
+    **Request:**
+
+    ```bash
+    curl --location --request POST 'http://localhost:8080/toggleMonitoringTask'
+    ```
+
+    **Response:**
+
+    ```json
+    {
+        "message": "Task started successfully"
+    }
+    ```
+
 
 ## API Documentation
-
-<iframe src="https://documenter.getpostman.com/view/9950111/2sA3JNaKxW" style="width: 100%; height: 500px;"></iframe>
 
 View the API documentation in Postman [here](https://documenter.getpostman.com/view/9950111/2sA3JNaKxW).
 
